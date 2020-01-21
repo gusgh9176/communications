@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public interface UsersRepository extends JpaRepository<Users, Long> {
@@ -14,7 +15,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
             "ORDER BY u.id DESC")
     Stream<Users> findAllDesc();
 
-    Stream<Users> findUsersByName(String name);
+    Optional<Users> findByName(String name);
 
     @Modifying
     @Query(value=" update Users u " +
