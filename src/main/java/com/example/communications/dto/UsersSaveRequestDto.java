@@ -3,35 +3,31 @@ package com.example.communications.dto;
 
 
 import com.example.communications.domain.users.Users;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class UsersSaveRequestDto {
 
+    private Long id;
     private String name;
-    private Integer victory;
-    private Integer rank;
-    private String results;
+    private String password;
+
 
     @Builder
-    public UsersSaveRequestDto(String name, Integer victory, Integer rank, String results) {
+    public UsersSaveRequestDto(Long id, String name, String password) {
+        this.id = id;
         this.name = name;
-        this.victory = victory;
-        this.rank = rank;
-        this.results = results;
+        this.password = password;
     }
 
     public Users toEntity(){
         return Users.builder()
+                .id(id)
                 .name(name)
-                .victory(victory)
-                .rank(rank)
-                .results(results)
+                .password(password)
                 .build();
     }
 }
