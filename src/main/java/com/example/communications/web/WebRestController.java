@@ -18,17 +18,14 @@ public class WebRestController {
 
     private UsersService usersService;
 
-    @GetMapping("/hello")
+    @GetMapping("hello")
     public String hello() {
         return "HelloWorld";
     }
 
-    @PostMapping("/users")
-    public Long saveUsers(@RequestBody UsersSaveRequestDto dto) {
-        return usersService.save(dto);
-    }
 
-    @PostMapping("/update")
+
+    @PostMapping("update")
     public Stream<Users> updateUsers(@RequestBody UsersUpdateRequestDto dto){
         return usersService.update(dto);
     }
