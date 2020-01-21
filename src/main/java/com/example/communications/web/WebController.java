@@ -68,7 +68,17 @@ public class WebController {
     }
 
     @GetMapping("test")
-    public String main() {
+    public String test() {
         return "test";
+    }
+
+    @GetMapping("rank")
+    public String dispRank() {
+        return "rank";
+    }
+
+    @GetMapping("/")
+    public String dispMain() {
+        return "main";
     }
 }
