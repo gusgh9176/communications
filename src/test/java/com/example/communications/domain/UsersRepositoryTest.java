@@ -34,9 +34,10 @@ public class UsersRepositoryTest {
 
     @Test
     public void 게시글저장_불러오기() {
+        // id 값은 domain @ 설정으로 인해 1부터 차례로 증가
         //given
         usersRepository.save(Users.builder()
-                .id((long)10)
+                .id((long)1)
                 .name("test-id")
                 .password("255")
                 .build());
@@ -55,7 +56,7 @@ public class UsersRepositoryTest {
         //given
         LocalDateTime now = LocalDateTime.now();
         usersRepository.save(Users.builder()
-                .id((long)10)
+                .id((long)1)
                 .name("test-id")
                 .password("255")
                 .build());
