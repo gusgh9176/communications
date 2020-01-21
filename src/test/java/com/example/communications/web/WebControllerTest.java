@@ -23,6 +23,6 @@ public class WebControllerTest {
         String body = this.restTemplate.getForObject("/test", String.class);
 
         //then
-        assertThat(body).contains("Test World");
+        assertThat(body).contains("스프링부트로 시작하는 웹 서비스");
     }
 }
