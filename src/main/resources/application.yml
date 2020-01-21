@@ -1,14 +1,13 @@
-
 spring:
   profiles:
-    active: local # ±âº» È¯°æ ¼±ÅÃ
+    active: local # ê¸°ë³¸ í™˜ê²½ ì„ íƒ
 
-# local È¯°æ
+# local í™˜ê²½
 ---
 spring:
   profiles: local
-#  datasource:
-#    data: classpath:data-h2.sql # ½ÃÀÛÇÒ¶§ ½ÇÇà½ÃÅ³ script
+  #  datasource:
+  #    data: classpath:data-h2.sql # ì‹œì‘í• ë•Œ ì‹¤í–‰ì‹œí‚¬ script
   jpa:
     show-sql: true
     hibernate:
