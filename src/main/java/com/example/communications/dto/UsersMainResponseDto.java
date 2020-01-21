@@ -9,20 +9,18 @@ import java.util.Optional;
 
 @Getter
 public class UsersMainResponseDto {
-    private Long id;
     private String name;
     private Integer victory;
     private Integer rank;
     private String results;
-    private String modifiedDate;
+    private String signDate;
 
     public UsersMainResponseDto(Users entity) {
-        id = entity.getId();
         name = entity.getName();
         victory = entity.getVictory();
         rank = entity.getRank();
         results = entity.getResults();
-        modifiedDate = toStringDateTime(entity.getModifiedDate());
+        signDate = toStringDateTime(entity.getSignDate());
     }
 
     /**
