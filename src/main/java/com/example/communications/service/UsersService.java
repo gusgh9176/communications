@@ -41,11 +41,11 @@ public class UsersService implements UserDetailsService {
 
     //Spring Security 관련
     @Transactional
-    public Long joinUser(UsersSaveRequestDto usersSaveRequestDto) {
+    public String joinUser(UsersSaveRequestDto usersSaveRequestDto) {
         // null이 아니라면 true 반환함, 중복 아이디 있다면 db에 추가 안함
         if(usersRepository.findByName(usersSaveRequestDto.getName()).isPresent()){
             System.out.println("현재 디비에 저장된 것"+usersRepository.findByName(usersSaveRequestDto.getName()));
-            return (long)-1;
+            return "none";
         }
 
         // 비밀번호 암호화

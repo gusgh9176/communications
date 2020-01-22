@@ -24,7 +24,7 @@ public class WebController {
     // 회원가입 처리
     @PostMapping("user/signup")
     public String execSignup(UsersSaveRequestDto usersSaveRequestDto) {
-        if(usersService.joinUser(usersSaveRequestDto)== (long)-1){
+        if(usersService.joinUser(usersSaveRequestDto).equals("none")){
             return "redirect:signupFailure";
         }
         return "redirect:login";
