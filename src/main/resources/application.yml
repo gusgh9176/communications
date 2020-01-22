@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local # 기본 환경 선택
+    active: deploy # 기본 환경 선택
 
 # local 환경
 ---
@@ -13,10 +13,6 @@ spring:
   h2:
     console:
       enabled: true
-#  data:
-#    mongodb:
-#      database: communications
-#      uri: mongodb://127.0.0.1:27017
 
 # deploy 환경
 ---
@@ -32,8 +28,6 @@ spring:
     hibernate:
       format_sql: true
       ddl-auto: update
-  main:
-    allow-bean-definition-overriding: true
 logging:
   level:
     org:
