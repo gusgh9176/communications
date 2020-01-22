@@ -58,6 +58,9 @@ public class UsersService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         Optional<Users> userEntityWrapper = usersRepository.findByName(userEmail);
+        if(!userEntityWrapper.isPresent()){
+            return null;
+        }
         Users userEntity = userEntityWrapper.get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
