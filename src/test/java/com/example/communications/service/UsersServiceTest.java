@@ -30,7 +30,6 @@ public class UsersServiceTest {
     public void Dto데이터가_uesrs테이블에_저장된다 () {
         //given
         UsersSaveRequestDto dto = UsersSaveRequestDto.builder()
-                .id((long)1)
                 .name("test_name")
                 .password("test_password")
                 .build();
@@ -40,7 +39,6 @@ public class UsersServiceTest {
 
         //then
         Users materials = usersRepository.findAll().get(0);
-        assertThat(materials.getId()).isEqualTo(dto.getId());
         assertThat(materials.getName()).isEqualTo(dto.getName());
         assertThat(materials.getPassword()).isEqualTo(dto.getPassword());
     }
