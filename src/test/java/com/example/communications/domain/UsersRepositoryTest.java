@@ -33,7 +33,7 @@ public class UsersRepositoryTest {
     }
 
     @Test
-    public void 게시글저장_불러오기() {
+    public void 유저저장_불러오기() {
         // id 값은 domain @ 설정으로 인해 1부터 차례로 증가
         //given
         usersRepository.save(Users.builder()

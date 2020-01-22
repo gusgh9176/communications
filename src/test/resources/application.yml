@@ -9,3 +9,7 @@ spring:
   profiles: local
   jpa:
     show-sql: true
+  data:
+    mongodb:
+      database: communications
+      uri: mongodb://127.0.0.1:27017
