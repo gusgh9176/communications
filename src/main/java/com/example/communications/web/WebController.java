@@ -60,20 +60,16 @@ public class WebController {
         return "denied";
     }
 
-    // 어드민 페이지
-    @GetMapping("admin")
-    public String dispAdmin(Model model) {
-        model.addAttribute("users", usersService.findAllDesc());
-        return "admin";
-    }
 
     @GetMapping("test")
     public String test() {
         return "test";
     }
 
+    // 랭크 페이지
     @GetMapping("rank")
-    public String dispRank() {
+    public String dispRank(Model model) {
+        model.addAttribute("users", usersService.findAllDesc());
         return "rank";
     }
 
