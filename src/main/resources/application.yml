@@ -6,8 +6,6 @@ spring:
 ---
 spring:
   profiles: local
-  #  datasource:
-  #    data: classpath:data-h2.sql # 시작할때 실행시킬 script
   jpa:
     show-sql: true
     hibernate:
@@ -15,3 +13,35 @@ spring:
   h2:
     console:
       enabled: true
+#  data:
+#    mongodb:
+#      database: communications
+#      uri: mongodb://127.0.0.1:27017
+
+# deploy 환경
+---
+spring:
+  profiles: deploy
+  data:
+    mongodb:
+      database: communications
+      uri: mongodb://127.0.0.1:27017
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: update
+  main:
+    allow-bean-definition-overriding: true
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+server:
+  port: 8080
