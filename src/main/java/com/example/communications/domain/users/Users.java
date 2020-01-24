@@ -13,6 +13,7 @@ import org.springframework.data.annotation.Id;
 @Getter
 public class Users extends BaseTimeEntity {
 
+    // 한번 정해지면 불변의 값은 id, name
     @Id
     private String id;
 
@@ -25,14 +26,6 @@ public class Users extends BaseTimeEntity {
     private Integer rank;
 
     private String results;
-
-//    // null 이면 0 값 or 빈 스트링 값 넣어서 insert
-//    @PrePersist
-//    public void prePersist() {
-//        this.victory = ((this.victory == null) ? 0 : this.victory);
-//        this.rank = ((this.rank == null) ? 0 : this.rank);
-//        this.results = ((this.results == null) ? "" : this.results);
-//    }
 
     @Builder
     public Users(String id, String name, String password, Integer victory, Integer rank, String results) {
