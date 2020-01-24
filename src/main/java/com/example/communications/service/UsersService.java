@@ -30,8 +30,8 @@ public class UsersService implements UserDetailsService {
     private UsersRepository usersRepository;
 
     @Transactional(readOnly = true)
-    public List<UsersMainResponseDto> findAllDesc() {
-        return usersRepository.findAllDesc()
+    public List<UsersMainResponseDto> findAll() {
+        return usersRepository.findAllBy()
                 .map(UsersMainResponseDto::new)
                 .collect(Collectors.toList());
     }

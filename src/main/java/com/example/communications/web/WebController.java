@@ -69,7 +69,7 @@ public class WebController {
     // 랭크 페이지
     @GetMapping("rank")
     public String dispRank(Model model) {
-        model.addAttribute("users", usersService.findAllDesc());
+        model.addAttribute("users", usersService.findAll());
         return "rank";
     }
 
