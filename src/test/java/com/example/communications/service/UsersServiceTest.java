@@ -3,6 +3,7 @@ package com.example.communications.service;
 import com.example.communications.domain.users.Users;
 import com.example.communications.domain.users.UsersRepository;
 import com.example.communications.dto.UsersSaveRequestDto;
+import com.example.communications.dto.UsersUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,5 +42,31 @@ public class UsersServiceTest {
         Users materials = usersRepository.findAll().get(0);
         assertThat(materials.getName()).isEqualTo(dto.getName());
         assertThat(materials.getPassword()).isEqualTo(dto.getPassword());
+    }
+
+    @Test
+    public void Dto데이터가_uesrs테이블에_업데이트된다 () {
+        //given
+        UsersSaveRequestDto dto = UsersSaveRequestDto.builder()
+                .name("test_name")
+                .password("test_password")
+                .build();
+
+        UsersUpdateRequestDto updateDto = UsersUpdateRequestDto.builder()
+                .name("test_name")
+                .rank(1)
+                .victory(1)
+                .results("승")
+                .build();
+
+        //when
+        usersService.joinUser(dto);
+        usersService.update(updateDto);
+
+        //then
+        Users materials = usersRepository.findAll().get(0);
+        assertThat(materials.getName()).isEqualTo(updateDto.getName());
+        assertThat(materials.getRank()).isEqualTo(updateDto.getRank());
+        assertThat(materials.getVictory()).isEqualTo(updateDto.getVictory());
     }
 }
