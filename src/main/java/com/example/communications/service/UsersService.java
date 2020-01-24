@@ -36,10 +36,18 @@ public class UsersService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    // 유저 업데이트 메소드
     @Transactional
-    public Stream<Users> update(UsersUpdateRequestDto dto) { return usersRepository.update(dto.toEntity()); }
+    public String update(UsersUpdateRequestDto dto) {
+        // 무조건 findByName 반환이 존재한다 가정
+        String id =usersRepository.findByName(dto.getName()).get().getId();
+        dto.setId(id);
 
-    //Spring Security 관련
+        return usersRepository.save(dto.toEntity()).getId();
+    }
+
+    // Spring Security 관련
+    // 유저 생성 메소드
     @Transactional
     public String joinUser(UsersSaveRequestDto usersSaveRequestDto) {
         // null이 아니라면 true 반환함, 중복 아이디 있다면 db에 추가 안함

@@ -26,7 +26,7 @@ public class WebRestController {
 
 
     @PostMapping("update")
-    public Stream<Users> updateUsers(@RequestBody UsersUpdateRequestDto dto){
+    public String updateUsers(@RequestBody UsersUpdateRequestDto dto){
         return usersService.update(dto);
     }
 }
