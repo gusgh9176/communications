@@ -1,5 +1,6 @@
-package com.example.communications.dto;
+package com.example.communications.dto.pvps;
 
+import com.example.communications.domain.pvps.Pvps;
 import com.example.communications.domain.users.Users;
 import lombok.*;
 
@@ -7,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 @NoArgsConstructor
-public class UsersUpdateRequestDto {
+public class PvpsSaveRequestDto {
 
     private String id;
     private String name;
@@ -15,8 +16,9 @@ public class UsersUpdateRequestDto {
     private Integer rank;
     private String results;
 
+
     @Builder
-    public UsersUpdateRequestDto(String id, String name, Integer victory, Integer rank, String results) {
+    public PvpsSaveRequestDto(String id, String name, Integer victory, Integer rank, String results) {
         this.id = id;
         this.name = name;
         this.victory = victory;
@@ -24,8 +26,8 @@ public class UsersUpdateRequestDto {
         this.results = results;
     }
 
-    public Users toEntity(){
-        return Users.builder()
+    public Pvps toEntity(){
+        return Pvps.builder()
                 .id(id)
                 .name(name)
                 .victory(victory)

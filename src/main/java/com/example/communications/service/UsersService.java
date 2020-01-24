@@ -4,9 +4,8 @@ package com.example.communications.service;
 import com.example.communications.domain.Role;
 import com.example.communications.domain.users.Users;
 import com.example.communications.domain.users.UsersRepository;
-import com.example.communications.dto.UsersMainResponseDto;
-import com.example.communications.dto.UsersSaveRequestDto;
-import com.example.communications.dto.UsersUpdateRequestDto;
+import com.example.communications.dto.users.UsersMainResponseDto;
+import com.example.communications.dto.users.UsersSaveRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @AllArgsConstructor
 @Service
@@ -34,16 +32,6 @@ public class UsersService implements UserDetailsService {
         return usersRepository.findAllBy()
                 .map(UsersMainResponseDto::new)
                 .collect(Collectors.toList());
-    }
-
-    // 유저 업데이트 메소드
-    @Transactional
-    public String update(UsersUpdateRequestDto dto) {
-        // 무조건 findByName 반환이 존재한다 가정
-        String id =usersRepository.findByName(dto.getName()).get().getId();
-        dto.setId(id);
-
-        return usersRepository.save(dto.toEntity()).getId();
     }
 
     // Spring Security 관련

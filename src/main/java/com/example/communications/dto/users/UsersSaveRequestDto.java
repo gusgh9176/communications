@@ -1,4 +1,4 @@
-package com.example.communications.dto;
+package com.example.communications.dto.users;
 
 
 
@@ -14,7 +14,6 @@ public class UsersSaveRequestDto {
     private String id;
     private String name;
     private String password;
-
 
     @Builder
     public UsersSaveRequestDto(String id, String name, String password) {

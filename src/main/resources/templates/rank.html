@@ -33,13 +33,14 @@
             </tr>
             </thead>
 
-            <tbody id="tbodyUsers">
-            <tr th:each="obj: ${users}">
+            <tbody id="tbodyPvps">
+            <tr th:each="obj: ${pvps}">
                 <td th:id="'td_name' + ${obj.name}" th:text="${obj.name}"></td>
                 <td th:id="'td_victory' + ${obj.name}" th:text="${obj.victory}"></td>
                 <td th:id="'td_rank' + ${obj.name}" th:text="${obj.rank}"></td>
                 <td th:id="'td_results' + ${obj.name}" th:text="${obj.results}"></td>
-                <td th:id="'td_signDate' + ${obj.name}" th:text="${obj.signDate}"></td>
+                <td></td>
+<!--                <td th:id="'td_signDate' + ${obj.name}" th:text="${obj.signDate}"></td>-->
             </tr>
             </tbody>
         </table>

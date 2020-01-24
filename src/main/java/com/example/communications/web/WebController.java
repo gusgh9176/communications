@@ -2,7 +2,8 @@ package com.example.communications.web;
 
 
 
-import com.example.communications.dto.UsersSaveRequestDto;
+import com.example.communications.dto.users.UsersSaveRequestDto;
+import com.example.communications.service.PvpsService;
 import com.example.communications.service.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @AllArgsConstructor
 public class WebController {
     private UsersService usersService;
+    private PvpsService pvpsService;
 
     // 회원가입 페이지
     @GetMapping("user/signup")
@@ -69,7 +71,7 @@ public class WebController {
     // 랭크 페이지
     @GetMapping("rank")
     public String dispRank(Model model) {
-        model.addAttribute("users", usersService.findAll());
+        model.addAttribute("pvps", pvpsService.findAll());
         return "rank";
     }
 
