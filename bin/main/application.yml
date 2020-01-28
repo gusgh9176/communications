@@ -1,0 +1,41 @@
+spring:
+  profiles:
+    active: deploy # 기본 환경 선택
+
+# local 환경
+---
+spring:
+  profiles: local
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+
+# deploy 환경
+---
+spring:
+  profiles: deploy
+  data:
+    mongodb:
+      database: communications
+      uri: mongodb://127.0.0.1:27017
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: update
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+server:
+  port: 8080

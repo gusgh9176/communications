@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<div id="app">
+		<form>
+			<!-- 메세지 표시영역 -->
+			<textarea id="messageBox" readonly="readonly" rows="10" cols="45"></textarea><br>
+			<!-- 텍스트입력창 -->
+			<input type="text" id="messageInput" size="50" />
+			<!-- 송신버튼 -->
+			<input type="button" value="전송" onclick="sendMessage()" />
+		</form>		 
+	</div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+	const app = new Vue({
+		el: '#messageBox',
+		data: {
+			
+		}
+	})
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	
+	var objDiv = document.getElementById("messageBox");
+	objDiv.scrollTop = objDiv.scrollHeight;
+
+
+	//웹소켓 초기화
+	var webSocket = new WebSocket("ws://localhost:8080/communications/websocket");
+	var messageBox = document.getElementById("messageBox");
+	
+	webSocket.onmessage = function updateMessage(message) {
+		//JSON 언박싱
+		var jsonData = JSON.parse(message.data);
+		if(jsonData.message != null) {
+			messageBox.value += jsonData.message + "\n"
+		};
+	}
+	
+	function sendMessage() {
+		var messageInput = document.getElementById("messageInput");
+		webSocket.send(messageInput.value);
+		messageInput.value = "";
+	}
+
+</script>
+
+</html>

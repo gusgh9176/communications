@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>RANK</title>
+
+    <!--부트스트랩 css 추가-->
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+</head>
+<body>
+<h1>RANK 페이지입니다.</h1>
+<hr>
+<a th:href="@{'/'}">메인으로 이동</a>
+
+<br/>
+<button sec:authorize="hasRole('ROLE_ADMIN')" type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal"
+        data-target="#saveMaterialsModal">재료 등록</button>
+
+
+<div class="row">
+    <div class="col-md-5">
+        <!-- 목록 출력 영역 -->
+        <table class="table table-horizontal table-bordered" id="table-list">
+            <thead class="thead-strong">
+            <tr>
+                <th width="15%">Name</th>
+                <th width="15%">Victory</th>
+                <th width="15%">순위</th>
+                <th width="40%">결과</th>
+                <th width="15%">생성일</th>
+            </tr>
+            </thead>
+
+            <tbody id="tbodyPvps">
+            <tr th:each="obj: ${pvps}">
+                <td th:id="'td_name' + ${obj.name}" th:text="${obj.name}"></td>
+                <td th:id="'td_victory' + ${obj.name}" th:text="${obj.victory}"></td>
+                <td th:id="'td_rank' + ${obj.name}" th:text="${obj.rank}"></td>
+                <td th:id="'td_results' + ${obj.name}" th:text="${obj.results}"></td>
+                <td></td>
+<!--                <td th:id="'td_signDate' + ${obj.name}" th:text="${obj.signDate}"></td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--csrf 토큰 -->
+<input type="hidden" id="csrf-token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+<!-- Modal 영역 -->
+<!-- 재료 등록-->
+<div class="modal fade" id="saveMaterialsModal" tabindex="-1" role="dialog" aria-labelledby="saveMaterialsLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="saveMaterialsLabel">등록</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="classification">분류</label>
+                        <input type="text" class="form-control" id="classification" placeholder="분류를 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="item"> 품목 </label>
+                        <input type="text" class="form-control" id="item" placeholder="품목을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="standard"> 규격 </label>
+                        <input type="text" class="form-control" id="standard" placeholder="규격을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="price"> 단가 </label>
+                        <input type="text" class="form-control" id="price" placeholder="숫자만 입력해주세요">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-primary" id="btn-save">등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--부트스트랩 js, jquery 추가-->
+<script src="/js/lib/jquery.min.js"></script>
+<script src="/js/lib/bootstrap.min.js"></script>
+
+<!--custom js 추가-->
+<script src="/js/app/main.js?ver=5"></script>
+
+</body>
+</html>
