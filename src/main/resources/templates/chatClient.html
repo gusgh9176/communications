@@ -3,6 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/stomp.min.js"></script>
+    <script src="/js/lib/sockjs.min.js"></script>
 </head>
 <body>
 	<div id="app">
@@ -14,14 +17,6 @@
 			<!-- 송신버튼 -->
 			<input type="button" value="전송" onclick="sendMessage()" />
 		</form>
-		
-		<!--
-		<form>
-			<textarea id="messageBox" readonly="readonly" rows="10" cols="45"></textarea><br>
-			<input v-model="message" v-on:keyup.enter="sendMessage()"/>
-			<button v-on:click="sendMessage()">전송</button>
-		</form>	
-		-->	 
 	</div>
 </body>
 
@@ -29,71 +24,20 @@
 
 
 <script type="text/javascript">
-	
-	//테스트용 임시 유저정보
-	var userInformation = {
-	        name: 'Sam',
-	        signData: 'yyyy-MM-dd HH:mm:ss'
-	    };
-	
-	//웹소켓 초기화
-	var webSocket = new WebSocket("ws://localhost:8080/communications/websocket");
-	var messageBox = document.getElementById("messageBox");
-	
-	//서버 연결시 유저정보 전송
-	webSocket.onopen = function sendUserInformation(e) {
-		$.ajax({
-            type: 'POST',
-            url: "ws://localhost:8080/communications/websocket",
-            dataType: 'json',
-            data: JSON.stringify(userInformation)
-        }).done(function() {
-            alert('채팅서버에 연결되었습니다.');
-            
-        }).fail(function (error) {
-            alert("채팅서버에 연결할 수 없습니다."");
-        });
-	}
-	
-	//메시지가 오면 출력
-	webSocket.onmessage = function updateMessage(message) {
-		//JSON 언박싱
-		var jsonData = JSON.parse(message.data);
-		if(jsonData.message != null) {
-			messageBox.value += jsonData.username + ":" + jsonData.message + "\n"
-		};
-	}
-	
-	//서버로 메시지 보내기
-	function sendMessage() {
-		var messageInput = document.getElementById("messageInput");
-		webSocket.send(messageInput.value);
-		messageInput.value = "";
+
+	function connect() {
+	  var socket = new SockJS('/websocket');
+	  var client = Stomp.over(socket);		//SockJS와 client 연결
+	  
+	  client.connect({}, function () {	//connection시 실행
+	  
+	    client.subscribe('/topic/chat', function (chat) {
+	      var content = JSON.parse(chat.body);
+	    });
+	  });
 	}
 
 </script>
-
-
-<!--
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
-<script language="javascript" type="text/javascript">
-
-	const app = new Vue({
-		el: '#messageBox',
-		data: {
-			message: ""
-		},
-		methods: {
-			sendMessage() {
-				var messageInput = this.message;
-				webSocket.send(messageInput.value);
-				messageInput.value = "";
-			}
-		}
-	})
-
-</script>
--->
 
 
 </html>
