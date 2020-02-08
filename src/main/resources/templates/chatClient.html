@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/stomp.min.js"></script>
+    <script src="/js/lib/sockjs.min.js"></script>
+    <script src="/js/app/chatClient.js"></script>
+    
+    <style>
+    	li { list-style-type : none; }
+    	li.whisper { color : grey;}
+    </style>
+</head>
+<body>
+	<div id="app">
+		<form>
+			<!-- 메세지 표시영역 -->
+			<ul id="messageBox"></ul>
+			<!-- 텍스트입력창 -->
+			<input type="text" id="messageInput" size="30" />
+			<!-- 송신버튼 -->
+			<button type="button" id="sendBtn">전송</button>
+		</form>
+	</div>
+</body>
+</html>

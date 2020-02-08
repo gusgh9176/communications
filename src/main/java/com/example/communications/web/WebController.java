@@ -79,4 +79,10 @@ public class WebController {
     public String dispMain() {
         return "main";
     }
+    
+    // 채팅 페이지
+    @GetMapping("chat")
+    public String dispChat() {
+        return "chatClient";
+    }
 }
