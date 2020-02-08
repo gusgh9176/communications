@@ -6,84 +6,23 @@
 	<script src="/js/lib/jquery.min.js"></script>
     <script src="/js/lib/stomp.min.js"></script>
     <script src="/js/lib/sockjs.min.js"></script>
+    <script src="/js/app/chatClient.js"></script>
+    
+    <style>
+    	li { list-style-type : none; }
+    	li.whisper { color : grey;}
+    </style>
 </head>
 <body>
 	<div id="app">
 		<form>
 			<!-- 메세지 표시영역 -->
-			<!-- <textarea id="messageBox" readonly="readonly" rows="10" cols="45"></textarea><br> -->
-			<ul id="messageBox">
-			</ul>
+			<ul id="messageBox"></ul>
 			<!-- 텍스트입력창 -->
-			<input type="text" id="messageInput" size="50" />
+			<input type="text" id="messageInput" size="30" />
 			<!-- 송신버튼 -->
 			<button type="button" id="sendBtn">전송</button>
 		</form>
 	</div>
-	
-	<script type="text/javascript">
-	
-	$(function() {
-		var messageBox = $('#messageBox');
-		var messageInput = $('#messageInput');
-		var sendBtn = $('#sendBtn');
-		var name = "user";
-		
-		var socket = new SockJS('/websocket');	
-		var client = Stomp.over(socket);		//SockJS와 client 연결
-		
-		
-		client.connect({}, function () {	//connection시 실행
-			
-			//메인 채팅 구독
-			client.subscribe('/topic/chat', function (chat) {
-		    	var content = JSON.parse(chat.body);
-		    	messageBox.append("<li>" + content.name + ":" + content.message + "</li>")
-		    	//messageBox.value += content.name + ":" + content.message + "\n";
-			});
-			//귓속말 구독
-			client.subscribe('/queue/' + name, function (chat) {
-				var content = JSON.parse(chat.body);
-				messageBox.value += content.name + ">>" + content.message + "\n";
-			})
-			
-			client.send("/app/chat/join", {}, JSON.stringify({name: name, message: ""}));
-		});
-		
-		//전송버튼 이벤트 등록
-		sendBtn.click(function() {
-			var message = messageInput.val();
-			if(isWhisper == true) {
-				client.send("/app/chat/whisper", {}, convertWhisper(message));
-			}
-			else client.send("/app/chat/message", {}, JSON.stringify({name: name, message: message}));
-			messageInput.val("");
-		});
-		
-		
-		function isWhisper(message) {
-			if(message[0] == "/") return true;
-			else return false;
-		}
-		
-		function convertWhisper(message) {
-			var nameIndex = message.indexOf(" ");
-			var receiver = message.slice(1, nameIndex);
-			var newMessage = message.slice(nameIndex+1, message.length);
-			return JSON.stringify({name: name, message: newMessage, receiver: receiver});
-		}
-		
-	});
-
-
-	</script>
-	
-	
 </body>
-
-
-
-
-
-
 </html>
