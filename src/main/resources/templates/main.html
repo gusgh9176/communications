@@ -16,6 +16,7 @@
 <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
 <a sec:authorize="isAnonymous()" th:href="@{/user/signup}">회원가입</a>
 <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/rank}">어드민</a>
+<a sec:authorize="isAuthenticated()" th:href="@{/chat}">채팅하기</a>
 
 <!--부트스트랩 js, jquery 추가-->
 <script src="/js/lib/jquery.min.js"></script>
