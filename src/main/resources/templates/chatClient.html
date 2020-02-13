@@ -1,28 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script src="/js/lib/jquery.min.js"></script>
-    <script src="/js/lib/stomp.min.js"></script>
-    <script src="/js/lib/sockjs.min.js"></script>
-    <script src="/js/app/chatClient.js"></script>
-    
+
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <!--부트스트랩 css 추가-->
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+
     <style>
-    	li { list-style-type : none; }
-    	li.whisper { color : grey;}
+        li {
+            list-style-type: none;
+        }
+
+        li.whisper {
+            color: grey;
+        }
+
+        #messageDiv {
+            overflow: auto;
+            height: 300px;
+        }
     </style>
+
 </head>
 <body>
-	<div id="app">
-		<form>
-			<!-- 메세지 표시영역 -->
-			<ul id="messageBox"></ul>
-			<!-- 텍스트입력창 -->
-			<input type="text" id="messageInput" size="30" />
-			<!-- 송신버튼 -->
-			<button type="button" id="sendBtn">전송</button>
-		</form>
-	</div>
+<br/>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" id="app">
+        <form>
+            <!-- 메세지 표시영역 -->
+            <div id="messageDiv">
+                <ul class="list-unstyled" id="messageBox"></ul>
+            </div>
+            <div>
+                <!-- name 텍스트 -->
+                <label sec:authentication="name" id="username"></label>
+                <!-- 텍스트입력창 -->
+                <input type="text" id="messageInput" placeholder="채팅을 입력하세요" size="30"/>
+                <!-- 송신버튼 -->
+                <button type="button" class="btn btn-primary btn-sm" id="sendBtn">전송</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<!--부트스트랩 js, jquery, stomp, sockjs 추가-->
+<script src="/js/lib/jquery.min.js"></script>
+<script src="/js/lib/stomp.min.js"></script>
+<script src="/js/lib/sockjs.min.js"></script>
+<script src="/js/lib/bootstrap.min.js"></script>
+
+<!--custom js 추가-->
+<script src="/js/app/chatClient.js"></script>
+
 </body>
 </html>
