@@ -12,7 +12,6 @@
 - issues
 - stars
 - release version
-- license
 
 ![Plat Form](https://img.shields.io/badge/Platform-web-lightgrey)
 [![GitHub issues](https://img.shields.io/github/issues/gusgh9176/communications)](https://github.com/gusgh9176/communications/issues)
@@ -60,7 +59,6 @@
 
 ---
 ## Special Thanks
-- https://newhiwoong.github.io/%EA%B8%B0%ED%83%80%20%EC%A0%95%EB%B3%B4%20%EA%B3%B5%EC%9C%A0/%EC%88%98%EC%A4%80%EA%B8%89%EC%9D%98-Github-README.md-%EC%9E%91%EC%84%B1%ED%95%98%EA%B8%B0
 
 ---
 ## License
