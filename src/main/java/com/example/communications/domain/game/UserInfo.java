@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserInfo {
-	private Users user;
+	private String user;
 	private int selectCard;
 	private int myVictory;
 	private int gameHash;

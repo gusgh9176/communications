@@ -12,8 +12,8 @@ public class GameManager {
 		
 	}
 
-	public String printColor(UserInfo userInfo) {
-		if(userInfo.getSelectCard()%2 == 0) return "red";
+	public String printColor() {
+		if(this.userInfo.getSelectCard()%2 == 0) return "red";
 		else return "blue";
 	}
 	
