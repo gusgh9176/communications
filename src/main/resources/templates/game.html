@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<style>
+	.card {
+		width : 60px;
+		height : 80px;
+		margin : 20px;
+    display : inline-block;
+    text-align : center;
+	}
+  .card.odd { background : red; }
+  .card.even { background : skyblue; }
+</style>
+</head>
+<body>
+	<form id="cardUI"></form>
+  <input id="cardNum" type="text" readonly></input>
+  <button type="button">선택</button>
+</body>
+
+<script>
+	$(function() {
+		var cardUI = $('#cardUI');
+    	var cardNum = $('#cardNum');
+
+		var cards = new Array(1, 2, 3, 4, 5, 6, 7, 8);
+    	for(var i=0; i<8; i++) {
+      		if(i%2!=1) {
+        		cardUI.append("<div class='card odd'>" + cards[i] + "</div>");
+      		}
+      		else cardUI.append("<div class='card even'>" + cards[i] + "</div>");
+    	}
+	});
+
+	function postCardNum(cardNum) {
+    	$.ajax({
+      		type : "POST",
+      		dataType : "json",
+      		url : "/game/",
+      		data : ,
+      		success: function(data) {
+        
+      		}
+    	})
+	}
+
+  	function getColor() {
+    	$.ajax({
+      		type : "GET",
+      		dataType : ,
+      		url : ,
+      		data : ,
+      		success : function(data) {
+
+      		},
+      		error : function(e) {
+
+      		}
+			//post로 데이터 전송 get으로 롱풀링받아오기
+    	});
+  	}
+  	
+  	function getWinner() {
+  		$.ajax({
+  			type : "GET",
+  			datatype : ,
+  			url : ,
+  			data : ,
+  			success : function(data) {
+  				
+  			}
+  		})
+  	}
+
+
+</script>
+
+</html>
