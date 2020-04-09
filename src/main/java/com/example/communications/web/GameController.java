@@ -16,13 +16,13 @@ import com.example.communications.domain.game.UserInfo;
 
 @RestController
 @RequestMapping("/game")
-public class GameController {
+public class GameController extends MatchController {
 	
-	private final Map<Integer, GameManager> gameManagers = new ConcurrentHashMap<Integer, GameManager>();
+	//private final Map<Integer, GameManager> gameManagers = new ConcurrentHashMap<Integer, GameManager>();
 	private final Map<Integer, DeferredResult<String>> gameRequests = new ConcurrentHashMap<Integer, DeferredResult<String>>();
 	
 	@GetMapping
-	public DeferredResult<String> getColor(@RequestParam int hash) {
+	public DeferredResult<String> getColor(@RequestParam("hash") int hash) {
 		
 		final DeferredResult<String> deferredResult = new DeferredResult<>();
 		gameRequests.put(hash, deferredResult);
@@ -31,7 +31,7 @@ public class GameController {
 	}
 	
 	@GetMapping
-	public DeferredResult<String> getWinner(@RequestParam int hash) {
+	public DeferredResult<String> getWinner(@RequestParam("hash") int hash) {
 		
 		final DeferredResult<String> deferredResult = new DeferredResult<>();
 		gameRequests.put(hash, deferredResult);
@@ -42,17 +42,17 @@ public class GameController {
 	
 	@PostMapping	//클라에서 정보 받아오기
 	public void postCardNum(@RequestParam UserInfo userInfo) {
-		GameManager game = gameManagers.get(userInfo.getGameHash());
+		//GameManager game = super.gameManagers.get(userInfo.getGameHash());
 		
-		if(game.getUserInfo() == null) {
-			game.setUserInfo(userInfo);
+		if(((GameManager) super.gameManagers).getUserInfo() == null) {
+			((GameManager) super.gameManagers).setUserInfo(userInfo);
 			DeferredResult<String> deferredResult = gameRequests.get(userInfo.getGameHash());
-			deferredResult.setResult(game.printColor());
+			deferredResult.setResult(((GameManager) super.gameManagers).printColor());
 		}
 		else {
-			game.fightCards(userInfo);
+			((GameManager) super.gameManagers).fightCards(userInfo);
 			DeferredResult<String> deferredResult = gameRequests.get(userInfo.getGameHash());
-			deferredResult.setResult(game.getUserInfo().getUser());
+			deferredResult.setResult(((GameManager) super.gameManagers).getUserInfo().getUser());
 		}
 	}
 	
