@@ -21,7 +21,7 @@ public class GameController extends MatchController {
 	//private final Map<Integer, GameManager> gameManagers = new ConcurrentHashMap<Integer, GameManager>();
 	private final Map<Integer, DeferredResult<String>> gameRequests = new ConcurrentHashMap<Integer, DeferredResult<String>>();
 	
-	@GetMapping
+	@GetMapping("/color")
 	public DeferredResult<String> getColor(@RequestParam("hash") int hash) {
 		
 		final DeferredResult<String> deferredResult = new DeferredResult<>();
@@ -30,7 +30,7 @@ public class GameController extends MatchController {
 		return deferredResult;
 	}
 	
-	@GetMapping
+	@GetMapping("/winner")
 	public DeferredResult<String> getWinner(@RequestParam("hash") int hash) {
 		
 		final DeferredResult<String> deferredResult = new DeferredResult<>();
@@ -40,7 +40,7 @@ public class GameController extends MatchController {
 	}
 	
 	
-	@PostMapping	//클라에서 정보 받아오기
+	@PostMapping("/cardnum")	//클라에서 정보 받아오기
 	public void postCardNum(@RequestParam UserInfo userInfo) {
 		//GameManager game = super.gameManagers.get(userInfo.getGameHash());
 		

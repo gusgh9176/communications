@@ -27,6 +27,8 @@
 	$(function() {
 		var cardUI = $('#cardUI');
     	var cardNum = $('#cardNum');
+    	var id; //TODO
+    	var myVictory = 0;
 
 		var cards = new Array(1, 2, 3, 4, 5, 6, 7, 8);
     	for(var i=0; i<8; i++) {
@@ -36,15 +38,47 @@
       		else cardUI.append("<div class='card even'>" + cards[i] + "</div>");
     	}
 	});
-
+	
+	var isFirst = true;
+	
+	function isWin(id) {
+		if(this.id == id) return true;
+		else return false;
+	}
+	
+	function afterRound(result) {
+		if(result == true) {
+			if(this.myVictory >= 5) {
+				alert("승리");
+			}
+			else {
+				this.myVictory = this.myVictory + 1;
+				//선공 시작
+			}
+		}
+		else {
+			
+			
+		}
+	}
+	
+	function selectCard() {
+		
+	}
+	
 	function postCardNum(cardNum) {
     	$.ajax({
       		type : "POST",
       		dataType : "json",
-      		url : "/game/",
+      		url : "/game/cardnum",
       		data : ,
       		success: function(data) {
-        
+        		if(this.isFirst == true) {
+        			getWinner();
+        		}
+        		else {
+        			
+        		}
       		}
     	})
 	}
@@ -52,14 +86,15 @@
   	function getColor() {
     	$.ajax({
       		type : "GET",
-      		dataType : ,
-      		url : ,
+      		dataType : "json",
+      		url : "/game/color",
       		data : ,
       		success : function(data) {
 
       		},
+      		timeout : 3000,
       		error : function(e) {
-
+				getColor();
       		}
 			//post로 데이터 전송 get으로 롱풀링받아오기
     	});
@@ -68,11 +103,15 @@
   	function getWinner() {
   		$.ajax({
   			type : "GET",
-  			datatype : ,
-  			url : ,
+  			datatype : "json",
+  			url : "/game/winner",
   			data : ,
   			success : function(data) {
   				
+  			}
+  			timeout : 3000,
+  			error : function(e) {
+  				getWinner();
   			}
   		})
   	}
