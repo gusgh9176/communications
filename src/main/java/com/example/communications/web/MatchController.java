@@ -16,6 +16,10 @@ public class MatchController {
 	private boolean isMatched = true;
 	private int Hash;
 	
+	public void resetGame() {
+		
+	}
+	
 	private void setNewHash() {
 		//TODO
 	}
