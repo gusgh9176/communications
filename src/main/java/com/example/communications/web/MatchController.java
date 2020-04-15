@@ -16,8 +16,14 @@ public class MatchController {
 	private boolean isMatched = true;
 	private int Hash;
 	
+	public void resetGame(int gameHash) {
+		this.gameManagers.remove(gameHash);
+	}
+	
 	private void setNewHash() {
-		//TODO
+		Object obj = new Object();
+		this.Hash = obj.hashCode();
+		obj = null;
 	}
 	
 	@GetMapping
@@ -35,6 +41,7 @@ public class MatchController {
 				else {
 					this.isMatched = true;
 					this.matchQueue.remove();
+					this.gameManagers.put(this.Hash, new GameManager());
 					return this.Hash;
 				}
 			}
