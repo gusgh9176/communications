@@ -58,6 +58,11 @@ public class GameController extends MatchController {
 		return deferredResult;
 	}
 	
+	@GetMapping("/dualResult")		//5선승 달성시 모든 유저가 실행
+	public String getDualResult(@RequestParam("hash") int hash) {
+		String winner = super.gameManagers.get(hash).getUserInfo().getUser();
+		return winner;
+	}
 	
 	@PostMapping("/cardnum")		//클라에서 정보 받아오기
 	public String postCardNum(@RequestParam UserInfo userInfo) {
@@ -73,7 +78,7 @@ public class GameController extends MatchController {
 			super.gameManagers.get(gameHash).fightCards(userInfo);
 			if(this.isWinner(gameHash)) {		//5선승 달성 시 실행
 				deferredResult.setResult("Game End");
-				super.resetGame(gameHash);
+				//super.resetGame(gameHash);
 			}
 			else {
 				deferredResult.setResult(super.gameManagers.get(gameHash).getUserInfo().getUser());
