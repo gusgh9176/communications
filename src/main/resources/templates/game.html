@@ -28,7 +28,8 @@
 		var cardUI = $('#cardUI');
     	var cardNum = $('#cardNum');
     	var id; //TODO
-    	var myVictory = 0;
+
+    	var isFirst = true;
 
 		var cards = new Array(1, 2, 3, 4, 5, 6, 7, 8);
     	for(var i=0; i<8; i++) {
@@ -39,31 +40,16 @@
     	}
 	});
 	
-	var isFirst = true;
-	
-	function isWin(id) {
-		if(this.id == id) return true;
-		else return false;
-	}
-	
-	function afterRound(result) {
-		if(result == true) {
-			if(this.myVictory >= 5) {
-				alert("승리");
-			}
-			else {
-				this.myVictory = this.myVictory + 1;
-				//선공 시작
-			}
-		}
-		else {
-			
-			
-		}
-	}
 	
 	function selectCard() {
 		
+	}
+	
+	function afterRound() {
+		if(this.isFirst == true) {
+			//선공할 차례입니다 ->visible
+			
+		}
 	}
 	
 	function postCardNum(cardNum) {
@@ -72,12 +58,21 @@
       		dataType : "json",
       		url : "/game/cardnum",
       		data : ,
-      		success: function(data) {
+      		success: function(winner) {
         		if(this.isFirst == true) {
         			getWinner();
         		}
         		else {
-        			
+        			if(winner == "Game End") {
+      					getDualResult();
+      				}
+      				else if(winner == this.id) {
+      					this.isFirst = true;
+      					//selectCardNum
+      				}
+      				else {
+      					this.isFirst = false;
+      				}
         		}
       		}
     	})
@@ -89,8 +84,8 @@
       		dataType : "json",
       		url : "/game/color",
       		data : ,
-      		success : function(data) {
-
+      		success : function(color) {
+				
       		},
       		timeout : 3000,
       		error : function(e) {
@@ -106,8 +101,17 @@
   			datatype : "json",
   			url : "/game/winner",
   			data : ,
-  			success : function(data) {
-  				
+  			success : function(winner) {
+  				if(winner == "Game End") {
+  					getDualResult();
+  				}
+  				else if(winner == this.id) {
+  					this.isFirst = true;
+  					//selectCardNum
+  				}
+  				else {
+  					this.isFirst = false;
+  				}
   			}
   			timeout : 3000,
   			error : function(e) {
@@ -115,7 +119,24 @@
   			}
   		})
   	}
-
+  	
+  	function getDualResult() {
+  		$.ajax({
+  			type : "GET",
+  			datatype : "json",
+  			url : "/game/dualResult",
+  			data : ,
+  			success : function(result) {
+  				if(result == this.id) {
+  					alert("You win!");
+  				}
+  				else {
+					alert("Defeated..");
+  				}
+  			}
+  		})
+  	}
+	
 
 </script>
 
