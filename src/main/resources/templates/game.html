@@ -19,8 +19,12 @@
 </head>
 <body>
 	<form id="cardUI"></form>
-  <input id="cardNum" type="text" readonly></input>
-  <button type="button">선택</button>
+	<form id="selectCard" style="visibility:hidden;">
+		<input id="cardNum" type="text" readonly>선택한 카드</input>
+		<button type="button">선택</button>
+	</form>
+	
+	<div id=roundResult style="visibility:hidden;">Round <span>win!</span></div>
 </body>
 
 <script>
@@ -32,38 +36,86 @@
     	var isFirst = true;
 
 		var cards = new Array(1, 2, 3, 4, 5, 6, 7, 8);
-    	for(var i=0; i<8; i++) {
-      		if(i%2!=1) {
-        		cardUI.append("<div class='card odd'>" + cards[i] + "</div>");
-      		}
-      		else cardUI.append("<div class='card even'>" + cards[i] + "</div>");
+    	showCard();
+    	
+    	function showCard() {
+    		for(var i=0; i<8; i++) {
+          		if(i%2!=1) {
+            		cardUI.append("<div class='card odd'>" + cards[i] + "</div>");
+          		}
+          		else cardUI.append("<div class='card even'>" + cards[i] + "</div>");
+        	}
     	}
-	});
-	
-	
-	function selectCard() {
-		
-	}
-	
-	function afterRound() {
-		if(this.isFirst == true) {
-			//선공할 차례입니다 ->visible
-			
-		}
-	}
-	
-	function postCardNum(cardNum) {
-    	$.ajax({
-      		type : "POST",
-      		dataType : "json",
-      		url : "/game/cardnum",
-      		data : ,
-      		success: function(winner) {
-        		if(this.isFirst == true) {
-        			getWinner();
-        		}
-        		else {
-        			if(winner == "Game End") {
+    	
+    	$('.card').click(function(){
+    	    var selectedNum = $(this).val();
+    	    cardNum.val(selectedNum);
+    	});
+    	/*
+    	function selectCard() {
+    		$('#selectCard').css('visibility','visible');
+    	}
+    	*/
+    	function afterRound() {
+    		if(this.isFirst == true) {
+    			//선공할 차례입니다 ->visible
+    			//settimeout -> hidden
+    			
+    			
+    		}
+    	}
+    	
+    	function postCardNum(cardNum) {
+        	$.ajax({
+          		type : "POST",
+          		dataType : "json",
+          		url : "/game/cardnum",
+          		data : ,
+          		success: function(winner) {
+            		if(this.isFirst == true) {
+            			getWinner();
+            		}
+            		else {
+            			if(winner == "Game End") {
+          					getDualResult();
+          				}
+          				else if(winner == this.id) {
+          					this.isFirst = true;
+          					//selectCardNum
+          				}
+          				else {
+          					this.isFirst = false;
+          				}
+            		}
+          		}
+        	})
+    	}
+
+      	function getColor() {
+        	$.ajax({
+          		type : "GET",
+          		dataType : "json",
+          		url : "/game/color",
+          		data : ,
+          		success : function(color) {
+    				
+          		},
+          		timeout : 3000,
+          		error : function(e) {
+    				getColor();
+          		}
+    			//post로 데이터 전송 get으로 롱풀링받아오기
+        	});
+      	}
+      	
+      	function getWinner() {
+      		$.ajax({
+      			type : "GET",
+      			datatype : "json",
+      			url : "/game/winner",
+      			data : ,
+      			success : function(winner) {
+      				if(winner == "Game End") {
       					getDualResult();
       				}
       				else if(winner == this.id) {
@@ -73,71 +125,32 @@
       				else {
       					this.isFirst = false;
       				}
-        		}
-      		}
-    	})
-	}
-
-  	function getColor() {
-    	$.ajax({
-      		type : "GET",
-      		dataType : "json",
-      		url : "/game/color",
-      		data : ,
-      		success : function(color) {
-				
-      		},
-      		timeout : 3000,
-      		error : function(e) {
-				getColor();
-      		}
-			//post로 데이터 전송 get으로 롱풀링받아오기
-    	});
-  	}
-  	
-  	function getWinner() {
-  		$.ajax({
-  			type : "GET",
-  			datatype : "json",
-  			url : "/game/winner",
-  			data : ,
-  			success : function(winner) {
-  				if(winner == "Game End") {
-  					getDualResult();
-  				}
-  				else if(winner == this.id) {
-  					this.isFirst = true;
-  					//selectCardNum
-  				}
-  				else {
-  					this.isFirst = false;
-  				}
-  			}
-  			timeout : 3000,
-  			error : function(e) {
-  				getWinner();
-  			}
-  		})
-  	}
-  	
-  	function getDualResult() {
-  		$.ajax({
-  			type : "GET",
-  			datatype : "json",
-  			url : "/game/dualResult",
-  			data : ,
-  			success : function(result) {
-  				if(result == this.id) {
-  					alert("You win!");
-  				}
-  				else {
-					alert("Defeated..");
-  				}
-  			}
-  		})
-  	}
-	
-
+      			}
+      			timeout : 3000,
+      			error : function(e) {
+      				getWinner();
+      			}
+      		})
+      	}
+      	
+      	function getDualResult() {
+      		$.ajax({
+      			type : "GET",
+      			datatype : "json",
+      			url : "/game/dualResult",
+      			data : ,
+      			success : function(result) {
+      				if(result == this.id) {
+      					alert("You win!");
+      				}
+      				else {
+    					alert("Defeated..");
+      				}
+      			}
+      		})
+      	}
+    	
+	});
 </script>
 
 </html>
