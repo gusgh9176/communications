@@ -19,9 +19,9 @@
 </head>
 <body>
 	<form id="cardUI"></form>
-	<form id="selectCard" style="visibility:hidden;">
+	<form id="selectForm" style="visibility:hidden;">
 		<input id="cardNum" type="text" readonly>선택한 카드</input>
-		<button type="button">선택</button>
+		<button id="selectBtn" type="button">선택</button>
 	</form>
 	
 	<div id=roundResult style="visibility:hidden;">Round <span>win!</span></div>
@@ -34,7 +34,9 @@
     	var id; //TODO
 
     	var isFirst = true;
-
+    	var selectedNum = 0;
+		
+    	var gameHash = 0;
 		var cards = new Array(1, 2, 3, 4, 5, 6, 7, 8);
     	showCard();
     	
@@ -47,30 +49,40 @@
         	}
     	}
     	
-    	$('.card').click(function(){
-    	    var selectedNum = $(this).val();
-    	    cardNum.val(selectedNum);
+    	$('.card').click(function() {
+    	    var num = $(this).val();
+    	    this.cardNum.val(num);
     	});
+    	
+    	$('#selectBtn').click(function() {
+    		this.selectedNum = this.cardNum.val();
+    		$('#selectForm').css('visibility', 'hidden');
+    	});
+    	
     	/*
     	function selectCard() {
     		$('#selectCard').css('visibility','visible');
     	}
     	*/
+    	
     	function afterRound() {
     		if(this.isFirst == true) {
     			//선공할 차례입니다 ->visible
     			//settimeout -> hidden
-    			
-    			
+    			postCardNum();
+    		}
+    		else {
+    			//상대의 선택을 기다리는 중
+    			getColor();
     		}
     	}
     	
-    	function postCardNum(cardNum) {
+    	function postCardNum() {
         	$.ajax({
           		type : "POST",
           		dataType : "json",
           		url : "/game/cardnum",
-          		data : ,
+          		data : JSON.stringify({user: , selectCard: selectedNum, gameHash: gameHash}),
           		success: function(winner) {
             		if(this.isFirst == true) {
             			getWinner();
@@ -96,7 +108,7 @@
           		type : "GET",
           		dataType : "json",
           		url : "/game/color",
-          		data : ,
+          		data : JSON.stringify({gameHash: gameHash}),
           		success : function(color) {
     				
           		},
@@ -113,7 +125,7 @@
       			type : "GET",
       			datatype : "json",
       			url : "/game/winner",
-      			data : ,
+      			data : JSON.stringify({gameHash: gameHash}),
       			success : function(winner) {
       				if(winner == "Game End") {
       					getDualResult();
@@ -138,7 +150,7 @@
       			type : "GET",
       			datatype : "json",
       			url : "/game/dualResult",
-      			data : ,
+      			data : JSON.stringify({gameHash: gameHash}),
       			success : function(result) {
       				if(result == this.id) {
       					alert("You win!");

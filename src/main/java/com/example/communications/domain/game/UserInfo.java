@@ -10,6 +10,5 @@ import lombok.Setter;
 public class UserInfo {
 	private String user;
 	private int selectCard;
-	private int myVictory;
 	private int gameHash;
 }
