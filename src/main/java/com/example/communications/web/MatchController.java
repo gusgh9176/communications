@@ -7,9 +7,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.communications.domain.game.GameManager;
 
+@RestController
 public class MatchController {
 	protected final Map<Integer, GameManager> gameManagers = new ConcurrentHashMap<Integer, GameManager>();
 	private Queue<String> matchQueue = new LinkedList<String>();
@@ -26,7 +28,7 @@ public class MatchController {
 		obj = null;
 	}
 	
-	@GetMapping
+	@GetMapping("/game/match")
 	public int getGameHash(@RequestParam String id) {
 		this.matchQueue.add(id);
 		
