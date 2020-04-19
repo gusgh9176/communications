@@ -23,6 +23,7 @@
 		<input id="cardNum" type="text" readonly>선택한 카드</input>
 		<button id="selectBtn" type="button">선택</button>
 	</form>
+	<h1 id="infoText" style="visibility:hidden;">상대의 선택을 기다리는 중..</h1>
 	
 	<div id=roundResult style="visibility:hidden;">Round <span>win!</span></div>
 </body>
@@ -41,8 +42,8 @@
     	showCard();
     	
     	function showCard() {
-    		for(var i=0; i<8; i++) {
-          		if(i%2!=1) {
+    		for(var i=0; i < cards.length; i++) {
+          		if(cards[i]%2!=1) {
             		cardUI.append("<div class='card odd'>" + cards[i] + "</div>");
           		}
           		else cardUI.append("<div class='card even'>" + cards[i] + "</div>");
@@ -57,8 +58,14 @@
     	$('#selectBtn').click(function() {
     		this.selectedNum = this.cardNum.val();
     		$('#selectForm').css('visibility', 'hidden');
+    		cards.splice(cards.indexOf(selectedNum, 1));
+    		postCardNum();
     	});
     	
+    	function showMsg(message) {
+    		$('#infoText').val(message);
+    		$('#infoText').css('visibility', 'visible');
+    	}
     	/*
     	function selectCard() {
     		$('#selectCard').css('visibility','visible');
@@ -67,14 +74,31 @@
     	
     	function afterRound() {
     		if(this.isFirst == true) {
-    			//선공할 차례입니다 ->visible
-    			//settimeout -> hidden
+    			showMsg("선공입니다. 카드를 골라주세요");
     			postCardNum();
     		}
     		else {
-    			//상대의 선택을 기다리는 중
+    			showMsg("상대의 선택을 기다리는 중");
     			getColor();
     		}
+    	}
+    	
+    	function getGameHash() {
+    		$.ajax({
+          		type : "GET",
+          		dataType : "json",
+          		url : "/game/match",
+          		data : JSON.stringify({id: id}),
+          		success : function(gameHash) {
+    				this.gameHash = gameHash
+    				$('#selectCard').css('visibility','visible');
+          		},
+          		timeout : 3000,
+          		error : function(e) {
+    				getGameHash();
+          		}
+    			//post로 데이터 전송 get으로 롱풀링받아오기
+        	});
     	}
     	
     	function postCardNum() {
