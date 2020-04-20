@@ -66,16 +66,17 @@
     		$('#infoText').val(message);
     		$('#infoText').css('visibility', 'visible');
     	}
-    	/*
+    	
     	function selectCard() {
-    		$('#selectCard').css('visibility','visible');
+    		$('#selectForm').css('visibility','visible');
     	}
-    	*/
+    	
     	
     	function afterRound() {
+    		showCard();
     		if(this.isFirst == true) {
     			showMsg("선공입니다. 카드를 골라주세요");
-    			postCardNum();
+    			selectCard();
     		}
     		else {
     			showMsg("상대의 선택을 기다리는 중");
@@ -91,7 +92,7 @@
           		data : JSON.stringify({id: id}),
           		success : function(gameHash) {
     				this.gameHash = gameHash
-    				$('#selectCard').css('visibility','visible');
+    				$('#selectForm').css('visibility','visible');
           		},
           		timeout : 3000,
           		error : function(e) {
@@ -123,8 +124,9 @@
           					this.isFirst = false;
           				}
             		}
+            		afterRound();
           		}
-        	})
+        	});
     	}
 
       	function getColor() {
@@ -134,7 +136,8 @@
           		url : "/game/color",
           		data : JSON.stringify({gameHash: gameHash}),
           		success : function(color) {
-    				
+    				showMsg("상대가 고른 카드는" + color + "입니다");
+    				selectCard();
           		},
           		timeout : 3000,
           		error : function(e) {
@@ -161,12 +164,13 @@
       				else {
       					this.isFirst = false;
       				}
+      				afterRound();
       			}
       			timeout : 3000,
       			error : function(e) {
       				getWinner();
       			}
-      		})
+      		});
       	}
       	
       	function getDualResult() {
@@ -183,7 +187,7 @@
     					alert("Defeated..");
       				}
       			}
-      		})
+      		});
       	}
     	
 	});
