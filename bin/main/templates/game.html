@@ -18,6 +18,7 @@
 </style>
 </head>
 <body>
+	<header></header>
 	<form id="cardUI"></form>
 	<form id="selectForm" style="visibility:hidden;">
 		<input id="cardNum" type="text" readonly>선택한 카드</input>
@@ -28,6 +29,7 @@
 	<div id=roundResult style="visibility:hidden;">Round <span>win!</span></div>
 </body>
 
+<script src="../static/js/app/includeUserInfo.js"></script>
 <script>
 	$(function() {
 		var cardUI = $('#cardUI');
@@ -52,7 +54,7 @@
     	
     	$('.card').click(function() {
     	    var num = $(this).val();
-    	    this.cardNum.val(num);
+    	    this.cardNum.val(this.num);
     	});
     	
     	$('#selectBtn').click(function() {
@@ -89,7 +91,7 @@
           		type : "GET",
           		dataType : "json",
           		url : "/game/match",
-          		data : JSON.stringify({id: id}),
+          		data : JSON.stringify({id: userId}),
           		success : function(gameHash) {
     				this.gameHash = gameHash
     				$('#selectForm').css('visibility','visible');
@@ -107,7 +109,7 @@
           		type : "POST",
           		dataType : "json",
           		url : "/game/cardnum",
-          		data : JSON.stringify({user: , selectCard: selectedNum, gameHash: gameHash}),
+          		data : JSON.stringify({user: userId, selectCard: selectedNum, gameHash: gameHash}),
           		success: function(winner) {
             		if(this.isFirst == true) {
             			getWinner();
@@ -165,7 +167,7 @@
       					this.isFirst = false;
       				}
       				afterRound();
-      			}
+      			},
       			timeout : 3000,
       			error : function(e) {
       				getWinner();
@@ -192,5 +194,7 @@
     	
 	});
 </script>
+
+<script src="/js/lib/jquery.min.js"></script>
 
 </html>
