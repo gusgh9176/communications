@@ -41,6 +41,8 @@
 		
     	var gameHash = 0;
 		var cards = new Array(1, 2, 3, 4, 5, 6, 7, 8);
+		
+		getGameHash();
     	showCard();
     	
     	function showCard() {
@@ -87,6 +89,7 @@
     	}
     	
     	function getGameHash() {
+    		showMsg("매칭 중입니다...");
     		$.ajax({
           		type : "GET",
           		dataType : "json",
