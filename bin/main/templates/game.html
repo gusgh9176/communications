@@ -29,8 +29,11 @@
 	<div id=roundResult style="visibility:hidden;">Round <span>win!</span></div>
 </body>
 
-<script src="../static/js/app/includeUserInfo.js"></script>
+<script src="/js/app/includeUserInfo.js"></script>
 <script>
+var userName = $(".userInfo name").val();
+//var userId = $(".userInfo id").val();
+var userId = Math.random().toString(36).substr(2,11);		//테스트용 임시 id
 	$(function() {
 		var cardUI = $('#cardUI');
     	var cardNum = $('#cardNum');
@@ -96,12 +99,12 @@
           		url : "/game/match",
           		data : JSON.stringify({id: userId}),
           		success : function(gameHash) {
-    				this.gameHash = gameHash
+    				this.gameHash = gameHash;
     				$('#selectForm').css('visibility','visible');
           		},
           		timeout : 3000,
           		error : function(e) {
-    				getGameHash();
+          			getGameHash();
           		}
     			//post로 데이터 전송 get으로 롱풀링받아오기
         	});
