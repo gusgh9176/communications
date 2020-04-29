@@ -31,7 +31,7 @@ public class MatchController {
 		obj = null;
 	}
 	
-	@GetMapping("/game/match")
+	@GetMapping("/match")
 	public int getGameHash(@RequestParam("id") String id) {
 		if(matchSet.add(id)) {		//set에 중복값 존재하지 않을 시 true반환
 			this.matchQueue.add(id);
