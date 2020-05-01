@@ -1,10 +1,20 @@
-var userName = $(".userInfo name").val();
+//var userName = $(".userInfo name").val();
 //var userId = $(".userInfo id").val();
-var userId = "papa";		//테스트용 임시 id
+//var userId = "papa";		//테스트용 임시 id
 
+/*
 var data = {
-		"id": userId
-}
+		id: userId
+};
+*/
+/*
+$(document).ready(function() {
+
+	//$("#header").load("userInfo.html #userId");
+
+	//userInfo.html의 userId를 불러와 #header에 삽입해준다.
+});
+*/
 	$(function() {
 		var cardUI = $('#cardUI');
     	var cardNum = $('#cardNum');
@@ -18,6 +28,8 @@ var data = {
 		
 		getGameHash();
     	showCard();
+    	//
+    	showMsg("asd");
     	
     	function showCard() {
     		for(var i=0; i < cards.length; i++) {
@@ -67,8 +79,9 @@ var data = {
     		$.ajax({
           		type : "GET",
           		dataType : "json",
+          		contentType : "application/json; charset=utf-8",
           		url : "/match",
-          		data : JSON.stringify(data),
+          		data : JSON.stringify({ id : "papa" };),
           		success : function(gameHash) {
     				this.gameHash = gameHash;
     				$('#selectForm').css('visibility','visible');
@@ -76,7 +89,7 @@ var data = {
           		timeout : 3000,
           		error : function(e) {
           			//getGameHash();
-          			alert("!");
+          			alert(userName);
           		}
     			//post로 데이터 전송 get으로 롱풀링받아오기
         	});
