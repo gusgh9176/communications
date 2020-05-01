@@ -6,6 +6,6 @@ var userName = $(".userInfo name").val();
 var userId = $(".userInfo id").val();
 
 function includeUserInfo() {
-	var includeArea = $("header");
+	var includeArea = $("#header");
 	includeArea.load("/templates/userInfo.html")
 }
