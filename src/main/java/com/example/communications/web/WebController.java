@@ -91,4 +91,10 @@ public class WebController {
     public String dispGame() {
     	return "game";
     }
+    
+ // 유저정보
+    @GetMapping("userInfo")
+    public String dispUserInfo() {
+    	return "userInfo";
+    }
 }
