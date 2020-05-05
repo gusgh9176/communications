@@ -2,22 +2,17 @@
 //var userId = $(".userInfo id").val();
 //var userId = "papa";		//테스트용 임시 id
 
-
+var userId = "papa";
 var data = {
-		id: "userId"
+		id: userId
 };
 
 
-$(document).ready(function() {
-
-	$("#header").load("userInfo #userId");
-	
-	
-	//userInfo.html의 userId를 불러와 #header에 삽입해준다.
-});
 
 
 	$(function() {
+		$("#header").load("userInfo #userId");
+		
 		var cardUI = $('#cardUI');
     	var cardNum = $('#cardNum');
     	var userName = $("#userId").text();
@@ -28,10 +23,11 @@ $(document).ready(function() {
     	var gameHash = 0;
 		var cards = new Array(1, 2, 3, 4, 5, 6, 7, 8);
 		
-		//getGameHash();
+		getGameHash();
     	showCard();
-    	//
-    	showMsg(userName);
+    	$("#userId").val("change");
+    	//alert(this.userName);
+    	//showMsg(this.userName);
     	
     	function showCard() {
     		for(var i=0; i < cards.length; i++) {
@@ -81,11 +77,12 @@ $(document).ready(function() {
     		$.ajax({
           		type : "GET",
           		dataType : "json",
-          		contentType : "application/json; charset=utf-8",
+          		contentType : "application/json; charset=UTF-8",
           		url : "/match",
-          		data : JSON.stringify(data),
+          		data : { id:"user123"},
           		success : function(gameHash) {
-    				this.gameHash = gameHash;
+          			alert(gameHash);
+    				gameHash = this.gameHash;
     				$('#selectForm').css('visibility','visible');
           		},
           		timeout : 3000,
