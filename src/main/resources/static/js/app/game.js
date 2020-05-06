@@ -15,7 +15,7 @@ var data = {
 		
 		var cardUI = $('#cardUI');
     	var cardNum = $('#cardNum');
-    	var userName = $("#userId").text();
+    	var userId = $("#userId").text();
 
     	var isFirst = true;
     	var selectedNum = 0;
@@ -39,14 +39,14 @@ var data = {
     	}
     	
     	$('.card').click(function() {
-    	    var num = $(this).val();
-    	    this.cardNum.val(this.num);
+    	    var num = $(this).text();
+    	    $("#cardNum").val(num);
     	});
     	
     	$('#selectBtn').click(function() {
-    		this.selectedNum = this.cardNum.val();
+    		this.selectedNum = $("#cardNum").val();
     		$('#selectForm').css('visibility', 'hidden');
-    		cards.splice(cards.indexOf(selectedNum, 1));
+    		this.cards.splice(cards.indexOf(selectedNum));
     		postCardNum();
     	});
     	
@@ -80,9 +80,9 @@ var data = {
           		contentType : "application/json; charset=UTF-8",
           		url : "/match",
           		data : { id:"user123"},
-          		success : function(gameHash) {
-          			alert(gameHash);
-    				gameHash = this.gameHash;
+          		success : function(Hash) {
+          			alert(Hash);
+    				this.gameHash = Hash;
     				$('#selectForm').css('visibility','visible');
           		},
           		timeout : 3000,
@@ -108,7 +108,7 @@ var data = {
             			if(winner == "Game End") {
           					getDualResult();
           				}
-          				else if(winner == this.id) {
+          				else if(winner == this.userId) {
           					this.isFirst = true;
           					//selectCardNum
           				}
