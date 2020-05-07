@@ -46,7 +46,7 @@ var data = {
     	$('#selectBtn').click(function() {
     		this.selectedNum = $("#cardNum").val();
     		$('#selectForm').css('visibility', 'hidden');
-    		this.cards.splice(cards.indexOf(selectedNum));
+    		cards.splice(cards.indexOf(selectedNum));
     		postCardNum();
     	});
     	
@@ -98,7 +98,7 @@ var data = {
         	$.ajax({
           		type : "POST",
           		dataType : "json",
-          		url : "/game/cardnum",
+          		url : "/game",
           		data : JSON.stringify({user: userId, selectCard: selectedNum, gameHash: gameHash}),
           		success: function(winner) {
             		if(this.isFirst == true) {
