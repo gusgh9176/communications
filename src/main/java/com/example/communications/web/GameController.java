@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,8 +65,8 @@ public class GameController extends MatchController {
 		return winner;
 	}
 	
-	@PostMapping("/cardnum")		//클라에서 정보 받아오기
-	public String postCardNum(@RequestParam UserInfo userInfo) {
+	@PostMapping		//클라에서 정보 받아오기
+	public String postCardNum(@RequestBody UserInfo userInfo) {
 		int gameHash = userInfo.getGameHash();
 		DeferredResult<String> deferredResult = gameRequests.get(gameHash);
 		

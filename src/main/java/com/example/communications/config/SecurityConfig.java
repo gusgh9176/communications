@@ -53,10 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 403 예외처리 핸들링
                 .exceptionHandling().accessDeniedPage("/user/denied")
         // 프레임 옵션, csrf 토큰 비활성화 (h2 db 테스트용)
-//                .and()
-//                .headers().frameOptions().disable()
-//                .and()
-//                .csrf().ignoringAntMatchers("/**")
+                .and()
+                .headers().frameOptions().disable()
+                .and()
+                .csrf().ignoringAntMatchers("/**")
         ;
     }
 
