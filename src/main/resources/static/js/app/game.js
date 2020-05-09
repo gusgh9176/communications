@@ -15,7 +15,8 @@ var data = {
 		
 		var cardUI = $('#cardUI');
     	var cardNum = $('#cardNum');
-    	var userId = $("#userId").text();
+    	//var userId = $("#userId").text();
+    	var userId = prompt("userId?");
 
     	var isFirst = true;
     	var selectedNum = 0;
@@ -30,6 +31,8 @@ var data = {
     	//showMsg(this.userName);
     	
     	function showCard() {
+    		$('#cardUI').empty();
+    		
     		for(var i=0; i < cards.length; i++) {
           		if(cards[i]%2!=1) {
             		cardUI.append("<div class='card odd'>" + cards[i] + "</div>");
@@ -46,8 +49,10 @@ var data = {
     	$('#selectBtn').click(function() {
     		this.selectedNum = $("#cardNum").val();
     		$('#selectForm').css('visibility', 'hidden');
-    		cards.splice(cards.indexOf(selectedNum));
-    		postCardNum();
+    		cards.splice(cards.indexOf(this.selectedNum));
+    		alert(cards.length);
+    		showCard();
+    		//postCardNum();
     	});
     	
     	function showMsg(message) {
@@ -79,7 +84,7 @@ var data = {
           		dataType : "json",
           		contentType : "application/json; charset=UTF-8",
           		url : "/match",
-          		data : { id:"user123"},
+          		data : { id:userId },
           		success : function(Hash) {
           			alert(Hash);
     				this.gameHash = Hash;
@@ -87,8 +92,7 @@ var data = {
           		},
           		timeout : 3000,
           		error : function(e) {
-          			//getGameHash();
-          			//alert(userName);
+          			getGameHash();
           		}
     			//post로 데이터 전송 get으로 롱풀링받아오기
         	});
@@ -98,6 +102,7 @@ var data = {
         	$.ajax({
           		type : "POST",
           		dataType : "json",
+          		contentType : "application/json; charset=UTF-8",
           		url : "/game",
           		data : JSON.stringify({user: userId, selectCard: selectedNum, gameHash: gameHash}),
           		success: function(winner) {
@@ -125,6 +130,7 @@ var data = {
         	$.ajax({
           		type : "GET",
           		dataType : "json",
+          		contentType : "application/json; charset=UTF-8",
           		url : "/game/color",
           		data : JSON.stringify({gameHash: gameHash}),
           		success : function(color) {
@@ -143,6 +149,7 @@ var data = {
       		$.ajax({
       			type : "GET",
       			datatype : "json",
+      			contentType : "application/json; charset=UTF-8",
       			url : "/game/winner",
       			data : JSON.stringify({gameHash: gameHash}),
       			success : function(winner) {
@@ -169,6 +176,7 @@ var data = {
       		$.ajax({
       			type : "GET",
       			datatype : "json",
+      			contentType : "application/json; charset=UTF-8",
       			url : "/game/dualResult",
       			data : JSON.stringify({gameHash: gameHash}),
       			success : function(result) {
