@@ -2,13 +2,6 @@
 //var userId = $(".userInfo id").val();
 //var userId = "papa";		//테스트용 임시 id
 
-var userId = "papa";
-var data = {
-		id: userId
-};
-
-
-
 
 	$(function() {
 		$("#header").load("userInfo #userId");
@@ -26,7 +19,7 @@ var data = {
 		
 		getGameHash();
     	showCard();
-    	$("#userId").val("change");
+    	//$("#userId").val("change");
     	//alert(this.userName);
     	//showMsg(this.userName);
     	
@@ -49,10 +42,9 @@ var data = {
     	$('#selectBtn').click(function() {
     		this.selectedNum = $("#cardNum").val();
     		$('#selectForm').css('visibility', 'hidden');
-    		cards.splice(cards.indexOf(this.selectedNum));
-    		alert(cards.length);
+    		cards.splice(cards.indexOf(Number(this.selectedNum)), 1);
     		showCard();
-    		//postCardNum();
+    		postCardNum();
     	});
     	
     	function showMsg(message) {
